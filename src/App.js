@@ -702,7 +702,7 @@ class App extends React.Component {
           />
           <input
             type='submit'
-            value={this.state.resultsSent === true ? 'SENT' : 'Send'}
+            value={this.state.resultsSent === true ? 'Sent' : 'Send'}
             className='backBtn backBtnEnd sendFinalResultsButton'
             onClick={this.sendEmailWithResults.bind(this)}
           />
