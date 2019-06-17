@@ -63,8 +63,8 @@ class App extends React.Component {
       // selectedFilter4: 'All',
       // selectedFilter5: 'All',
       // menu: { open: false },
-      cmp: true,
-      cmp2: false,
+      cmp: false,
+      cmp2: true,
       test: true,
       filteredOut1: [],
       filteredOut2: [],
@@ -725,16 +725,16 @@ class App extends React.Component {
 
         {this.state.cmp2 && (
           <div>
-            <ShowDelayed wait={2000}>
-              <SecondComponent
-                filterBy2={tabItems2}
-                ToNextComp={this.ToThirdComponentFunc}
-                ToPreviousComp={this.FromSecondBackToFirstFunc}
-              />
-            </ShowDelayed>
+            {/* <ShowDelayed wait={2000}> */}
+            <SecondComponent
+              filterBy2={tabItems2}
+              ToNextComp={this.ToThirdComponentFunc}
+              ToPreviousComp={this.FromSecondBackToFirstFunc}
+            />
+            {/* </ShowDelayed>
             <ShowWhileDelayed wait={2000}>
               <Loading process={'Finding your best match...'} />
-            </ShowWhileDelayed>
+            </ShowWhileDelayed> */}
           </div>
         )}
 
