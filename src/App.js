@@ -1,13 +1,19 @@
 import React from 'react';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import ReactToPrint from 'react-to-print';
 import venues from './API/venues';
 import './App.css';
 import './AppMobile.css';
 import Header from './Header';
 
-import loading from './images/loading.svg';
+import FirstComponent from './components/FirstComponent';
+import SecondComponent from './components/SecondComponent';
+import ThirdComponent from './components/ThirdComponent';
+import FourthComponent from './components/FourthComponent';
+import FifthComponent from './components/FifthComponent';
+// import SixthComponent from './components/SixthComponent';
+import SeventhComponent from './components/SeventhComponent';
+import ShowDelayed from './components/ShowDelayed';
+import ShowWhileDelayed from './components/ShowWhileDelayed';
+import Loading from './components/Loading';
 
 import corporate from './images/occasion/corporate.png';
 import weddings from './images/occasion/weddings.png';
@@ -45,387 +51,6 @@ import northmiami from './images/locations/northmiami.png';
 import palmbeachcounty from './images/locations/palmbeachcounty.png';
 import southmiami from './images/locations/southmiami.png';
 
-import placeholder from './images/other/placeholder.png';
-
-const FirstComponent = props => {
-  return (
-    <div className='container'>
-      <h1 className='text-center qHeadings mb-5'>What are you celebrating?</h1>
-      <div className='row' onClick={props.ToNextComp}>
-        {props.filterBy}
-      </div>
-    </div>
-  );
-};
-
-const SecondComponent = props => {
-  return (
-    <div className='container'>
-      <h1 className='text-center qHeadings mb-5'>Venue type</h1>
-      <div className='row' onClick={props.ToNextComp}>
-        {props.filterBy2}
-      </div>
-      {/* <div className='text-center'>
-        <button onClick={props.StartOverTheApp} className='backBtn mt-5 mb-5'>
-          BACK
-        </button>
-      </div> */}
-    </div>
-  );
-};
-class ThirdComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  StartOverTheApp = () => {
-    window.location.reload();
-  };
-  render() {
-    return (
-      <div className='container'>
-        <h1 className='text-center qHeadings mb-5'>
-          Preferred geographical area
-        </h1>
-        <div className='row' onClick={this.props.ToNextComp}>
-          {this.props.filterBy3}
-        </div>
-        <div className='text-center'>
-          <button onClick={this.StartOverTheApp} className='backBtn mt-5 mb-5'>
-            BACK
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
-const FourthComponent = props => {
-  return (
-    <div className='container'>
-      <h1 className='text-center qHeadings mb-5'>Estimated number of guests</h1>
-      <div className='row etaNumberAlign' onClick={props.ToNextComp}>
-        {props.filterBy4}
-      </div>
-      <div className='text-center'>
-        <button onClick={props.ToPreviousComp} className='backBtn mt-5 mb-5'>
-          BACK
-        </button>
-      </div>
-    </div>
-  );
-};
-const FifthComponent = props => {
-  return (
-    <div className='container'>
-      <h1 className='text-center qHeadings mb-5'>
-        Select your budget for the venue only
-      </h1>
-      <div className='row budgetAlign' onClick={props.ToNextComp}>
-        {props.filterBy5}
-      </div>
-      <p className='budgetDisclaimer mt-5'>
-        Venue rental fees range from as little as $1000 to over $25000. The
-        average venue rental fees run from $4000 to around $8000. Venue rental
-        fees do not include the cost of catering and other wedding or event
-        services. As a general guideline, your venue cost will make up somewhere
-        between 15-30% of your total budget.
-      </p>
-      <div className='text-center'>
-        <button onClick={props.ToPreviousComp} className='backBtn mt-5 mb-5'>
-          BACK
-        </button>
-      </div>
-    </div>
-  );
-};
-class SixthComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { inputName: '' };
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(event) {
-    this.setState({ inputName: event.target.inputName });
-  }
-  render() {
-    return (
-      <div className='container'>
-        <h1 className='text-center qHeadings mb-5'>
-          Let us contact you to discuss your next event!
-        </h1>
-
-        <div className='row mt-5'>
-          <div className='col-sm' />
-          <div className='col-sm'>
-            <iframe
-              className='iframe'
-              name='output_frame'
-              src=''
-              id='output_frame'
-              width='300px'
-              height='300px'
-            />
-            <form
-              className='needs-validation mobileInputAlign'
-              noValidate
-              action='https://formspree.io/bhmvq1@gmail.com'
-              method='POST'
-              target='_blank'
-            >
-              {/* TODO: */}
-              <div className='form-row'>
-                <div className='col-md-4 mb-3'>
-                  <input
-                    type='text'
-                    className='form-control bhInput'
-                    id='validationTooltip01'
-                    placeholder='NAME'
-                    required
-                    name='name'
-                    value={this.state.inputName}
-                    onChange={this.handleChange}
-                  />
-                  <div className='valid-tooltip'>Looks good!</div>
-                </div>
-              </div>
-              <div className='form-row'>
-                <div className='col-md-4 mb-3'>
-                  <input
-                    type='text'
-                    className='form-control bhInput'
-                    id='validationTooltip02'
-                    placeholder='PHONE'
-                    required
-                  />
-                  <div className='valid-tooltip'>Looks good!</div>
-                </div>
-              </div>
-              <div className='form-row'>
-                <div className='col-md-4 mb-3'>
-                  <input
-                    type='email'
-                    className='form-control bhInput'
-                    id='validationTooltip02'
-                    placeholder='EMAIL'
-                    required
-                    name='_replyto'
-                  />
-                  <div className='valid-tooltip'>Looks good!</div>
-                </div>
-              </div>
-
-              <button
-                className=' bhSubmitBtn'
-                type='submit'
-                value='Send'
-                onClick={this.props.ToNextComp}
-              >
-                SUBMIT
-              </button>
-            </form>
-          </div>
-          <div className='col-sm' />
-        </div>
-        <div className='text-center'>
-          <button
-            onClick={this.props.ToPreviousComp}
-            className='backBtn mt-5 mb-5'
-          >
-            BACK
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
-class SeventhComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  printDocument() {
-    const input = document.getElementById('divToPrint');
-    html2canvas(input).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, 'JPEG', 0, 0);
-      // pdf.output('dataurlnewwindow');
-      pdf.save('download.pdf');
-    });
-  }
-  render() {
-    return (
-      <div className='container'>
-        <h1 className='text-center qHeadings mb-5'>
-          Thanks for telling us about your event!
-        </h1>
-        <div className='text-center'>
-          <ReactToPrint
-            trigger={() => (
-              <button className='backBtn backBtnEnd mt-5 mb-5'>
-                <a className='print' href='#'>
-                  SAVE
-                </a>
-              </button>
-            )}
-            content={() => this.componentRef}
-          />
-        </div>
-
-        <div className='row' ref={el => (this.componentRef = el)}>
-          {this.props.filteredOut5.map(venue => (
-            <div
-              className='col-sm text-center mt-5 pointerWhole'
-              key={venue.ID}
-            >
-              <a
-                className='noBlueLine'
-                target='_blank'
-                rel='noopener noreferrer'
-                href={`http://billhansenmiamivenues.com/venues-vendors/${venue.Name.replace(
-                  / +/g,
-                  '-'
-                ).toLowerCase()}`}
-              >
-                <span
-                  className={
-                    venue.featured === 1
-                      ? 'sameImgSize notify-badge'
-                      : 'sameImgSize doNotShowBadge'
-                  }
-                >
-                  FEATURED
-                </span>
-                <img
-                  src={venue.Images}
-                  alt={placeholder}
-                  onError={e => {
-                    e.target.onerror = null;
-                    e.target.src = placeholder;
-                  }}
-                  className={
-                    venue.featured === 1
-                      ? 'sameImgSize HOVE'
-                      : 'sameImgSize HOVE'
-                  }
-                />
-
-                <p className='text-center mt-3 '>
-                  <span className='aHeadings whenPrinted' href='#0'>
-                    {venue.Name}
-                  </span>
-                </p>
-                <p className='text-center mt-3'>
-                  <span
-                    className='aHeadings whenPrinted whenPrinted2'
-                    href='#0'
-                  >
-                    {`http://billhansenmiamivenues.com/venues-vendors/${venue.Name.replace(
-                      / +/g,
-                      '-'
-                    ).toLowerCase()}`}
-                  </span>
-                </p>
-              </a>
-            </div>
-          ))}
-        </div>
-        <div className='text-center'>
-          <button
-            onClick={this.props.StartOver}
-            className='backBtn backBtnEndTop mt-5 mb-5'
-          >
-            START AGAIN
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
-
-class ShowDelayed extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hidden: true };
-  }
-
-  componentDidMount = () => {
-    // ***
-    // Remember the timer handle             // ***
-    this.timerHandle = setTimeout(() => {
-      // ***
-      this.setState({ hidden: false }); // ***
-      this.timerHandle = 0; // ***
-    }, this.props.wait); // ***
-  }; // ***
-  // ***
-  componentWillUnmount = () => {
-    // ***
-    // Is our timer running?                 // ***
-    if (this.timerHandle) {
-      // ***
-      // Yes, clear it                     // ***
-      clearTimeout(this.timerHandle); // ***
-      this.timerHandle = 0; // ***
-    } // ***
-  };
-
-  // componentDidMount = () => {
-  //   setTimeout(() => {
-  //     this.setState({ hidden: false });
-  //   }, this.props.wait);
-  // };
-
-  render() {
-    return this.state.hidden ? '' : this.props.children;
-  }
-}
-
-class ShowWhileDelayed extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hidden: false };
-  }
-
-  // componentDidMount() {
-  //   setTimeout(() => {
-  //     this.setState({ hidden: true });
-  //   }, this.props.wait);
-
-  componentDidMount = () => {
-    // ***
-    // Remember the timer handle             // ***
-    this.timerHandle = setTimeout(() => {
-      // ***
-      this.setState({ hidden: true }); // ***
-      this.timerHandle = 0; // ***
-    }, this.props.wait); // ***
-  }; // ***
-  // ***
-  componentWillUnmount = () => {
-    // ***
-    // Is our timer running?                 // ***
-    if (this.timerHandle) {
-      // ***
-      // Yes, clear it                     // ***
-      clearTimeout(this.timerHandle); // ***
-      this.timerHandle = 0; // ***
-    } // ***
-  };
-
-  render() {
-    return this.state.hidden ? '' : this.props.children;
-  }
-}
-
-const Loading = props => {
-  return (
-    <div className='text-center loadingDiv'>
-      <img src={loading} alt='Personalizing...' className='HOVE3' />
-      <h1 className='aHeadings mt-5'>{props.process}</h1>
-    </div>
-  );
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -445,15 +70,29 @@ class App extends React.Component {
       filteredOut3: [],
       filteredOut4: [],
       filteredOut5: venues.filter(venue => venue.featured === 1),
-      inputName: ''
+      value: '',
+      absoluteButton: false,
+      resultsSent: false
     };
-    console.log(
-      '%c%s',
-      'color:red; background:blue; font-size: 20pt',
-      'blah ;)'
-    );
+
+    this.handleChange = this.handleChange.bind(this);
+    console.log('%c%s', 'color:red; background:blue; font-size: 20pt', ';)');
   }
 
+  sendEmailWithResults() {
+    this.setState({
+      resultsSent: !this.state.resultsSent
+    });
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
   selectFilter = filter => {
     this.setState({
       // selectedFilter: filter,
@@ -1027,6 +666,52 @@ class App extends React.Component {
     return (
       <div>
         <Header StartOverTheApp={this.StartOverTheApp} />
+
+        {/* TODO: */}
+        {/* TODO: */}
+        {/* TODO: */}
+        <form
+          id='contact-form'
+          className={!this.state.absoluteButton ? 'displayNone' : null}
+        >
+          <input type='hidden' name='contact_number' />
+
+          <input type='text' name='user_name' className='displayNone' />
+
+          <input
+            type='email'
+            name='user_email'
+            className='displayNone'
+            value={this.state.value}
+          />
+
+          <textarea
+            className='displayNone'
+            type='text'
+            name='contact'
+            value={this.state.filteredOut5.map(
+              venue =>
+                `${
+                  venue.Name
+                } URL: http://billhansenmiamivenues.com/venues-vendors/${venue.Name.replace(
+                  / +/g,
+                  '-'
+                ).toLowerCase()}`
+            )}
+          />
+          <input
+            type='submit'
+            value={
+              this.state.resultsSent === true ? 'Venues Have Been Sent' : 'Send'
+            }
+            className='backBtn backBtnEnd sendFinalResultsButton'
+            onClick={this.sendEmailWithResults.bind(this)}
+          />
+        </form>
+        {/* TODO: */}
+        {/* TODO: */}
+        {/* TODO: */}
+
         {this.state.cmp && (
           <div>
             <FirstComponent
@@ -1044,7 +729,6 @@ class App extends React.Component {
                 ToNextComp={this.ToThirdComponentFunc}
                 ToPreviousComp={this.FromSecondBackToFirstFunc}
               />
-              <h1 className='text-center qHeadings mb-5'>Comming soon...</h1>
             </ShowDelayed>
             <ShowWhileDelayed wait={2000}>
               <Loading process={'Finding your best match...'} />
@@ -1099,10 +783,96 @@ class App extends React.Component {
         {this.state.cmp6 && (
           <div>
             <ShowDelayed wait={2000}>
-              <SixthComponent
+              {/* <SixthComponent
                 ToNextComp={this.ToSeventhComponentFunc}
                 ToPreviousComp={this.FromSixthBackToFifthFunc}
-              />
+              /> */}
+              <div className='container'>
+                <h1 className='text-center qHeadings mb-5'>
+                  We've found your perfect venue match! Please provide your
+                  email to share all the details.
+                </h1>
+
+                <div className='row mt-5'>
+                  <div className='col-sm' />
+                  <div className='col-sm'>
+                    <iframe
+                      className='iframe'
+                      name='output_frame'
+                      src=''
+                      id='output_frame'
+                      width='300px'
+                      height='300px'
+                    />
+                    <form
+                      className='needs-validation mobileInputAlign'
+                      noValidate
+                      action='https://formspree.io/bhmvq1@gmail.com'
+                      method='POST'
+                      target='output_frame'
+                    >
+                      <div className='form-row'>
+                        <div className='col-md-4 mb-3'>
+                          <input
+                            type='text'
+                            className='form-control bhInput'
+                            id='validationTooltip01'
+                            placeholder='NAME'
+                            required
+                            name='name'
+                          />
+                          <div className='valid-tooltip'>Looks good!</div>
+                        </div>
+                      </div>
+                      <div className='form-row'>
+                        <div className='col-md-4 mb-3'>
+                          <input
+                            type='text'
+                            className='form-control bhInput'
+                            id='validationTooltip02'
+                            placeholder='PHONE'
+                            required
+                          />
+                          <div className='valid-tooltip'>Looks good!</div>
+                        </div>
+                      </div>
+                      <div className='form-row'>
+                        <div className='col-md-4 mb-3'>
+                          <input
+                            type='email'
+                            className='form-control bhInput'
+                            id='validationTooltip02'
+                            placeholder='EMAIL'
+                            required
+                            name='_replyto'
+                            value={this.state.value}
+                            onChange={this.handleChange}
+                          />
+                          <div className='valid-tooltip'>Looks good!</div>
+                        </div>
+                      </div>
+
+                      <button
+                        className=' bhSubmitBtn'
+                        type='submit'
+                        value='Send'
+                        onClick={this.ToSeventhComponentFunc}
+                      >
+                        SUBMIT
+                      </button>
+                    </form>
+                  </div>
+                  <div className='col-sm' />
+                </div>
+                <div className='text-center'>
+                  <button
+                    onClick={this.FromSixthBackToFifthFunc}
+                    className='backBtn mt-5 mb-5'
+                  >
+                    BACK
+                  </button>
+                </div>
+              </div>
             </ShowDelayed>
             <ShowWhileDelayed wait={2000}>
               <Loading process={'Finalizing the results...'} />
@@ -1125,6 +895,7 @@ class App extends React.Component {
       </div>
     );
   }
+
   FromSecondBackToFirstFunc = () => {
     this.setState({
       // ...this.state,
@@ -1132,6 +903,7 @@ class App extends React.Component {
       cmp2: false
     });
   };
+
   ToSecondComponentFunc = () => {
     this.setState({
       // ...this.state,
@@ -1241,6 +1013,9 @@ class App extends React.Component {
       cmp6: false,
       cmp7: true
     });
+    setInterval(() => {
+      this.setState({ absoluteButton: true });
+    }, 4000);
     const segment = `form submitted`;
     window.analytics.track(segment);
     window.analytics.identify('userId12345', {
