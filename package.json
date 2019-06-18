@@ -2,7 +2,7 @@
   "name": "bhmv-questionnaire",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bhmv.github.io/questionnaire2/",
+  "homepage": "https://bhmv.github.io/questionnaire/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "emailjs-com": "^2.3.2",
