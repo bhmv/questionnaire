@@ -8,7 +8,6 @@ class Popup extends React.Component {
         $('.popup_inner').fadeOut();
       });
     }, 3000);
-
     return (
       <div className='popup'>
         <div className='popup_inner'>
